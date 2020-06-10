@@ -173,14 +173,9 @@ static YGConfigRef globalConfig;
 
 + (void)initialize {
   globalConfig = YGConfigNew();
-<<<<<<< HEAD
-  YGConfigSetExperimentalFeatureEnabled(globalConfig, YGExperimentalFeatureWebFlexBasis, true);
-  YGConfigSetPointScaleFactor(globalConfig, 0);
-=======
   YGConfigSetExperimentalFeatureEnabled(
       globalConfig, YGExperimentalFeatureWebFlexBasis, true);
-  YGConfigSetPointScaleFactor(globalConfig, [UIScreen mainScreen].scale);
->>>>>>> master
+  YGConfigSetPointScaleFactor(globalConfig, 0);
 }
 
 - (instancetype)initWithView:(UIView*)view {
@@ -424,16 +419,10 @@ static void YGAttachNodesFromViewHierachy(UIView* const view) {
   } else {
     YGNodeSetMeasureFunc(node, NULL);
 
-<<<<<<< HEAD
-    NSMutableArray<UIView *> *subviewsToInclude = [[NSMutableArray alloc] initWithCapacity:view.subviews.count];
-    for (UIView *subview in view.subviews) {
-      if (subview.yoga.isIncludedInLayout) {
-=======
     NSMutableArray<UIView*>* subviewsToInclude =
         [[NSMutableArray alloc] initWithCapacity:view.subviews.count];
     for (UIView* subview in view.subviews) {
-      if (subview.yoga.isEnabled && subview.yoga.isIncludedInLayout) {
->>>>>>> master
+      if (subview.yoga.isIncludedInLayout) {
         [subviewsToInclude addObject:subview];
       }
     }
