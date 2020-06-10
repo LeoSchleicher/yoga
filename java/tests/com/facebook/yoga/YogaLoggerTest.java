@@ -1,9 +1,10 @@
-/**
+/*
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the MIT license found in the LICENSE
- * file in the root directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.yoga;
 
 import org.junit.Test;
@@ -14,10 +15,10 @@ import static org.junit.Assert.fail;
 public class YogaLoggerTest {
   @Test
   public void testLoggerLeak() throws Exception {
-    final YogaConfig config = new YogaConfig();
+    final YogaConfig config = YogaConfigFactory.create();
     YogaLogger logger = new YogaLogger() {
       @Override
-      public void log(YogaNode yogaNode, YogaLogLevel level, String message) {
+      public void log(YogaLogLevel level, String message) {
       }
     };
     config.setLogger(logger);
