@@ -1,12 +1,9 @@
 /**
- * Copyright (c) 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the LICENSE
+ * file in the root directory of this source tree.
  */
-
 #include <gtest/gtest.h>
 #include <yoga/Yoga.h>
 
@@ -92,7 +89,7 @@ TEST(YogaTest, assert_default_values) {
 }
 
 TEST(YogaTest, assert_webdefault_values) {
-  YGConfig *config = YGConfigNew();
+  YGConfig* config = YGConfigNew();
   YGConfigSetUseWebDefaults(config, true);
   const YGNodeRef root = YGNodeNewWithConfig(config);
 
@@ -105,7 +102,7 @@ TEST(YogaTest, assert_webdefault_values) {
 }
 
 TEST(YogaTest, assert_webdefault_values_reset) {
-  YGConfig *config = YGConfigNew();
+  YGConfig* config = YGConfigNew();
   YGConfigSetUseWebDefaults(config, true);
   const YGNodeRef root = YGNodeNewWithConfig(config);
   YGNodeReset(root);
@@ -115,5 +112,52 @@ TEST(YogaTest, assert_webdefault_values_reset) {
   ASSERT_FLOAT_EQ(1.0f, YGNodeStyleGetFlexShrink(root));
 
   YGNodeFreeRecursive(root);
+  YGConfigFree(config);
+}
+
+TEST(YogaTest, assert_legacy_stretch_behaviour) {
+  YGConfig* config = YGConfigNew();
+  YGConfigSetUseLegacyStretchBehaviour(config, true);
+  const YGNodeRef root = YGNodeNewWithConfig(config);
+  YGNodeStyleSetWidth(root, 500);
+  YGNodeStyleSetHeight(root, 500);
+
+  const YGNodeRef root_child0 = YGNodeNewWithConfig(config);
+  YGNodeStyleSetAlignItems(root_child0, YGAlignFlexStart);
+  YGNodeInsertChild(root, root_child0, 0);
+
+  const YGNodeRef root_child0_child0 = YGNodeNewWithConfig(config);
+  YGNodeStyleSetFlexGrow(root_child0_child0, 1);
+  YGNodeStyleSetFlexShrink(root_child0_child0, 1);
+  YGNodeInsertChild(root_child0, root_child0_child0, 0);
+
+  const YGNodeRef root_child0_child0_child0 = YGNodeNewWithConfig(config);
+  YGNodeStyleSetFlexGrow(root_child0_child0_child0, 1);
+  YGNodeStyleSetFlexShrink(root_child0_child0_child0, 1);
+  YGNodeInsertChild(root_child0_child0, root_child0_child0_child0, 0);
+  YGNodeCalculateLayout(root, YGUndefined, YGUndefined, YGDirectionLTR);
+
+  ASSERT_FLOAT_EQ(0, YGNodeLayoutGetLeft(root));
+  ASSERT_FLOAT_EQ(0, YGNodeLayoutGetTop(root));
+  ASSERT_FLOAT_EQ(500, YGNodeLayoutGetWidth(root));
+  ASSERT_FLOAT_EQ(500, YGNodeLayoutGetHeight(root));
+
+  ASSERT_FLOAT_EQ(0, YGNodeLayoutGetLeft(root_child0));
+  ASSERT_FLOAT_EQ(0, YGNodeLayoutGetTop(root_child0));
+  ASSERT_FLOAT_EQ(500, YGNodeLayoutGetWidth(root_child0));
+  ASSERT_FLOAT_EQ(500, YGNodeLayoutGetHeight(root_child0));
+
+  ASSERT_FLOAT_EQ(0, YGNodeLayoutGetLeft(root_child0_child0));
+  ASSERT_FLOAT_EQ(0, YGNodeLayoutGetTop(root_child0_child0));
+  ASSERT_FLOAT_EQ(0, YGNodeLayoutGetWidth(root_child0_child0));
+  ASSERT_FLOAT_EQ(500, YGNodeLayoutGetHeight(root_child0_child0));
+
+  ASSERT_FLOAT_EQ(0, YGNodeLayoutGetLeft(root_child0_child0_child0));
+  ASSERT_FLOAT_EQ(0, YGNodeLayoutGetTop(root_child0_child0_child0));
+  ASSERT_FLOAT_EQ(0, YGNodeLayoutGetWidth(root_child0_child0_child0));
+  ASSERT_FLOAT_EQ(500, YGNodeLayoutGetHeight(root_child0_child0_child0));
+
+  YGNodeFreeRecursive(root);
+
   YGConfigFree(config);
 }

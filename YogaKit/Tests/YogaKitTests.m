@@ -1,10 +1,8 @@
 /**
- * Copyright (c) 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 #import <XCTest/XCTest.h>
@@ -129,6 +127,15 @@
   XCTAssertEqual(longTextLabelSize.width + textBadgeView.yoga.intrinsicSize.width, containerSize.width);
 }
 
+- (void)testSizeThatFitsEmptyView {
+  UIView* view = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 200, 200)];
+  view.yoga.isEnabled = YES;
+
+  const CGSize viewSize = view.yoga.intrinsicSize;
+  XCTAssertEqual(viewSize.height, 0);
+  XCTAssertEqual(viewSize.width, 0);
+}
+
 - (void)testPreservingOrigin
 {
   UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0,0,50,75)];
@@ -181,7 +188,9 @@
   view.yoga.height = YGPointValue(100);
   [container addSubview:view];
 
-  [container.yoga applyLayoutPreservingOrigin:YES dimensionFlexibility:YGDimensionFlexibilityFlexibleHeigth];
+  [container.yoga
+      applyLayoutPreservingOrigin:YES
+             dimensionFlexibility:YGDimensionFlexibilityFlexibleHeight];
   XCTAssertEqual(200, container.frame.size.width);
   XCTAssertEqual(100, container.frame.size.height);
 }
@@ -197,7 +206,10 @@
   view.yoga.height = YGPointValue(100);
   [container addSubview:view];
 
-  [container.yoga applyLayoutPreservingOrigin:YES dimensionFlexibility:YGDimensionFlexibilityFlexibleWidth | YGDimensionFlexibilityFlexibleHeigth];
+  [container.yoga
+      applyLayoutPreservingOrigin:YES
+             dimensionFlexibility:YGDimensionFlexibilityFlexibleWidth |
+             YGDimensionFlexibilityFlexibleHeight];
   XCTAssertEqual(100, container.frame.size.width);
   XCTAssertEqual(100, container.frame.size.height);
 }

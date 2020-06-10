@@ -1,12 +1,9 @@
-/*
- * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the LICENSE
+ * file in the root directory of this source tree.
  */
-
 #pragma once
 
 #include <memory>
@@ -190,7 +187,9 @@ public:
   // particular java class) to be hoisted to a common function.  If
   // mapException returns, then the std::exception will be translated
   // to Java.
-  static void mapException(const std::exception& ex) {}
+  static void mapException(const std::exception& ex) {
+    (void)ex;
+  }
 };
 
 template <typename T, typename B>

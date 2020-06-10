@@ -1,12 +1,9 @@
-/*
- * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the LICENSE
+ * file in the root directory of this source tree.
  */
-
 #pragma once
 
 #include <new>
@@ -184,10 +181,11 @@ inline base_owned_ref<T, Alloc>::base_owned_ref() noexcept
   : base_owned_ref(nullptr)
 {}
 
-template<typename T, typename Alloc>
-inline base_owned_ref<T, Alloc>::base_owned_ref(std::nullptr_t t) noexcept
-  : base_owned_ref(static_cast<javaobject>(nullptr))
-{}
+template <typename T, typename Alloc>
+inline base_owned_ref<T, Alloc>::base_owned_ref(std::nullptr_t array) noexcept
+    : base_owned_ref(static_cast<javaobject>(nullptr)) {
+  (void)array;
+}
 
 template<typename T, typename Alloc>
 inline base_owned_ref<T, Alloc>::base_owned_ref(const base_owned_ref& other)

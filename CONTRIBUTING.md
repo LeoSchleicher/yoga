@@ -2,6 +2,10 @@
 We want to make contributing to this project as easy and transparent as
 possible.
 
+## Code of Conduct
+
+Facebook has adopted a Code of Conduct that we expect project participants to adhere to. Please [read the full text](https://code.fb.com/codeofconduct/) so that you can understand what actions will and will not be tolerated.
+
 ## Pull Requests
 We actively welcome your pull requests.
 1. Fork the repo and create your branch from `master`.
@@ -25,9 +29,6 @@ Facebook has a [bounty program](https://www.facebook.com/whitehat/) for the safe
 disclosure of security bugs. In those cases, please go through the process
 outlined on that page and do not file a public issue.
 
-## Coding Style
-* format.sh
-
 ## License
 By contributing to yoga, you agree that your contributions will be licensed
-under its BSD license.
+under its MIT license.

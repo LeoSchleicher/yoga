@@ -1,12 +1,9 @@
-/*
- * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the LICENSE
+ * file in the root directory of this source tree.
  */
-
 #pragma once
 
 #include <string.h>
@@ -511,6 +508,8 @@ class PinnedCriticalAlloc {
       T** elements,
       size_t* size,
       jboolean* isCopy) {
+    (void)start;
+    (void)length;
     const auto env = internal::getEnv();
     *elements = static_cast<T*>(env->GetPrimitiveArrayCritical(array.get(), isCopy));
     FACEBOOK_JNI_THROW_EXCEPTION_IF(!elements);
@@ -522,6 +521,8 @@ class PinnedCriticalAlloc {
       jint start,
       jint size,
       jint mode) {
+    (void)start;
+    (void)size;
     const auto env = internal::getEnv();
     env->ReleasePrimitiveArrayCritical(array.get(), elements, mode);
   }

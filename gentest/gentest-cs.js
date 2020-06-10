@@ -1,10 +1,8 @@
 /**
- * Copyright (c) 2014-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 function toValueCs(value) {
@@ -117,6 +115,7 @@ CSEmitter.prototype = Object.create(Emitter.prototype, {
   YGJustifyFlexStart:{value:'YogaJustify.FlexStart'},
   YGJustifySpaceAround:{value:'YogaJustify.SpaceAround'},
   YGJustifySpaceBetween:{value:'YogaJustify.SpaceBetween'},
+  YGJustifySpaceEvenly:{value:'YogaJustify.SpaceEvenly'},
 
   YGOverflowHidden:{value:'YogaOverflow.Hidden'},
   YGOverflowVisible:{value:'YogaOverflow.Visible'},
